@@ -9,7 +9,6 @@ class Login extends React.Component {
     this.state = {
       name: '',
       email: '',
-      isRedirect: false,
     };
   }
 

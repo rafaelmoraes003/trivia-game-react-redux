@@ -4,7 +4,7 @@ class Settings extends React.Component {
   render() {
     return (
       <p data-testid="settings-title">
-      Tela de Settings
+        Tela de Settings
       </p>
     );
   }
