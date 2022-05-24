@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './trivia.png';
-import './App.css';
+import './App.css'; //
 
 export default function App() {
   return (
