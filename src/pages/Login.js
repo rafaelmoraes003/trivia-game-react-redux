@@ -35,40 +35,54 @@ class Login extends React.Component {
     history.push('/game');
   };
 
+  settingsButton = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  }
+
   render() {
     return (
-      <form>
-        <label htmlFor="name">
-          Nome
-          <input
-            type="text"
-            name="name"
-            id="name"
-            data-testid="input-player-name"
-            onChange={ this.handleChange }
-          />
-        </label>
+      <div>
+        <form>
+          <label htmlFor="name">
+            Nome
+            <input
+              type="text"
+              name="name"
+              id="name"
+              data-testid="input-player-name"
+              onChange={ this.handleChange }
+            />
+          </label>
 
-        <label htmlFor="email">
-          Email
-          <input
-            type="text"
-            name="email"
-            id="email"
-            data-testid="input-gravatar-email"
-            onChange={ this.handleChange }
-          />
-        </label>
+          <label htmlFor="email">
+            Email
+            <input
+              type="text"
+              name="email"
+              id="email"
+              data-testid="input-gravatar-email"
+              onChange={ this.handleChange }
+            />
+          </label>
 
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ !this.enableButton() }
+            onClick={ this.sendNameToGlobalState }
+          >
+            Play
+          </button>
+        </form>
         <button
           type="button"
-          data-testid="btn-play"
-          disabled={ !this.enableButton() }
-          onClick={ this.sendNameToGlobalState }
+          data-testid="btn-settings"
+          onClick={ this.settingsButton }
         >
-          Play
+          Settings
         </button>
-      </form>
+      </div>
     );
   }
 }
