@@ -3,7 +3,9 @@ import React from 'react';
 class Game extends React.Component {
   render() {
     return (
-      <>game</>
+      <div data-testid="game-div">
+        Games
+      </div>
     );
   }
 }
