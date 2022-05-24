@@ -25,11 +25,15 @@ class Login extends React.Component {
     return name.length > 0 && email.length > 0 && email.match(regex);
   }
 
-  sendNameToGlobalState = () => {
+  sendNameToGlobalState = async () => {
     const { name } = this.state;
-    const { sendName } = this.props;
+    const { sendName, history } = this.props;
     sendName(name);
-  }
+    const response = await fetch('https://opentdb.com/api_token.php?command=request');
+    const data = await response.json();
+    localStorage.setItem('token', data.token);
+    history.push('/game');
+  };
 
   render() {
     return (
