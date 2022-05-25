@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import username from '../redux/actions/username';
 
@@ -26,12 +27,21 @@ class Login extends React.Component {
   }
 
   sendNameToGlobalState = async () => {
-    const { name } = this.state;
     const { sendName, history } = this.props;
-    sendName(name);
+    sendName(this.state);
+
+    const { name, email } = this.state;
     const response = await fetch('https://opentdb.com/api_token.php?command=request');
-    const data = await response.json();
+    const data = await response.json(); // TOKEN API
+
+    const gravatarHash = md5(email).toString(); // IMAGEM GRAVATAR
+    const gravatarURL = `https://www.gravatar.com/avatar/${gravatarHash}`;
+
+    const ranking = [{ name, score: 0, picture: gravatarURL }];
+
+    localStorage.setItem('ranking', JSON.stringify(ranking));
     localStorage.setItem('token', data.token);
+
     history.push('/game');
   };
 
