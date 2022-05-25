@@ -4,7 +4,9 @@ import Header from '../components/Header';
 class Game extends React.Component {
   render() {
     return (
-      <Header />
+      <div data-testid="game-div">
+        <Header />
+      </div>
     );
   }
 }
