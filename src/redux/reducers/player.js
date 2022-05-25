@@ -10,7 +10,8 @@ const player = (state = INITIAL_STATE, action) => {
   case 'PLAYER':
     return {
       ...state,
-      name: action.payload,
+      name: action.payload.name,
+      gravatarEmail: action.payload.email,
     };
   default:
     return state;
