@@ -12,7 +12,7 @@ class Game extends React.Component {
       index: 0,
       answers: [],
       showAnswers: false,
-      timer: 40,
+      timer: 30,
       disabled: false,
       score: 0,
       assertions: 0,
@@ -87,15 +87,16 @@ class Game extends React.Component {
         savePontuation({ score, assertions });
       });
     }
-    const MAX_TIME = 2000;
-    setTimeout(() => {
-      this.setState((prevState) => ({
-        timer: 40,
-        index: (prevState.index + 1) % trivia.length,
-        showAnswers: false,
-      }));
-    }, MAX_TIME);
   }
+
+  nextBtn = () => {
+    const { trivia } = this.state;
+    this.setState((prevState) => ({
+      timer: 30,
+      index: (prevState.index + 1) % trivia.length,
+      showAnswers: false,
+    }));
+  };
 
   render() {
     const { trivia, index, answers, showAnswers, timer, disabled } = this.state;
@@ -112,7 +113,7 @@ class Game extends React.Component {
                 if (item === trivia[index].correct_answer) {
                   return (
                     <button
-                      style={ { border: showAnswers && '3px solid rgb(6, 240, 15)' } }
+                      style={ { border: showAnswers && '3px solid rgb(6,  240, 15)' } }
                       key={ item }
                       type="button"
                       data-testid="correct-answer"
@@ -139,6 +140,15 @@ class Game extends React.Component {
               })}
             </div>
           </div>
+        )}
+        {showAnswers && (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ this.nextBtn }
+          >
+            Next
+          </button>
         )}
 
       </div>
