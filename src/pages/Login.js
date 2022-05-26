@@ -38,7 +38,7 @@ class Login extends React.Component {
     const gravatarURL = `https://www.gravatar.com/avatar/${gravatarHash}`; // IMAGEM GRAVATAR
     const ranking = [{ name, score: 0, picture: gravatarURL }];
     localStorage.setItem('ranking', JSON.stringify(ranking));
-    
+
     history.push('/game');
   };
 
