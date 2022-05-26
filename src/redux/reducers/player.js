@@ -13,6 +13,12 @@ const player = (state = INITIAL_STATE, action) => {
       name: action.payload.name,
       gravatarEmail: action.payload.email,
     };
+  case 'PONTUATION':
+    return {
+      ...state,
+      score: action.payload.score,
+      assertions: action.payload.assertions,
+    };
   default:
     return state;
   }
