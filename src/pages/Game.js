@@ -9,6 +9,7 @@ class Game extends React.Component {
       trivia: [],
       index: 0,
       answers: [],
+      showAnswers: false,
     };
   }
 
@@ -41,8 +42,12 @@ class Game extends React.Component {
     }
   }
 
+  handleClick = () => {
+    this.setState({ showAnswers: true });
+  }
+
   render() {
-    const { trivia, index, answers } = this.state;
+    const { trivia, index, answers, showAnswers } = this.state;
     return (
       <div data-testid="game-div">
         <Header />
@@ -55,18 +60,22 @@ class Game extends React.Component {
                 if (id === 2 + 1) {
                   return (
                     <button
+                      style={ { border: showAnswers && '3px solid rgb(6, 240, 15)' } }
                       key={ id }
                       type="button"
                       data-testid="correct-answer"
+                      onClick={ () => this.handleClick() }
                     >
                       {answer}
                     </button>
                   );
                 } return (
                   <button
+                    style={ { border: showAnswers && '3px solid red' } }
                     key={ id }
                     type="button"
                     data-testid={ `wrong-answer-${id}` }
+                    onClick={ () => this.handleClick() }
                   >
                     {answer}
                   </button>
