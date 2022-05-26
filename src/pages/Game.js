@@ -49,7 +49,7 @@ class Game extends React.Component {
   render() {
     const { trivia, index, answers, showAnswers } = this.state;
     return (
-      <div data-testid="game-div">
+      <div data-testid="game-page-div">
         <Header />
         {trivia.length > 0 && (
           <div>
