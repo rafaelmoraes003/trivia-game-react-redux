@@ -29,19 +29,16 @@ class Login extends React.Component {
   sendNameToGlobalState = async () => {
     const { sendName, history } = this.props;
     sendName(this.state);
-
     const { name, email } = this.state;
     const response = await fetch('https://opentdb.com/api_token.php?command=request');
-    const data = await response.json(); // TOKEN API
+    const data = await response.json();
+    localStorage.setItem('token', data.token); // TOKEN API
 
-    const gravatarHash = md5(email).toString(); // IMAGEM GRAVATAR
-    const gravatarURL = `https://www.gravatar.com/avatar/${gravatarHash}`;
-
+    const gravatarHash = md5(email).toString();
+    const gravatarURL = `https://www.gravatar.com/avatar/${gravatarHash}`; // IMAGEM GRAVATAR
     const ranking = [{ name, score: 0, picture: gravatarURL }];
-
     localStorage.setItem('ranking', JSON.stringify(ranking));
-    localStorage.setItem('token', data.token);
-
+    
     history.push('/game');
   };
 
