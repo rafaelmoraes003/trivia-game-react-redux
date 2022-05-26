@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
+import pontuation from '../redux/actions/pontuation';
 
 class Game extends React.Component {
   constructor() {
@@ -10,8 +12,10 @@ class Game extends React.Component {
       index: 0,
       answers: [],
       showAnswers: false,
-      timer: 10,
+      timer: 40,
       disabled: false,
+      score: 0,
+      assertions: 0,
     };
   }
 
@@ -20,8 +24,8 @@ class Game extends React.Component {
     const MAX_SECONDS = 1000;
 
     setInterval(() => {
-      const { trivia, timer, showAnswers } = this.state;
-      if (timer > 0) {
+      const { timer, showAnswers } = this.state;
+      if (timer > 0 && !showAnswers) {
         this.setState((prevState) => ({
           timer: prevState.timer - 1,
           disabled: false,
@@ -32,12 +36,6 @@ class Game extends React.Component {
           showAnswers: false,
           timer: 0,
         });
-      } else if (timer === 0 && showAnswers) {
-        this.setState((prevState) => ({
-          timer: 10,
-          index: (prevState.index + 1) % trivia.length,
-          showAnswers: false,
-        }));
       }
     }, MAX_SECONDS);
   }
@@ -58,8 +56,45 @@ class Game extends React.Component {
     this.setState({ answers });
   }
 
-  handleClick = () => {
-    this.setState({ showAnswers: true });
+  difficultyTimes = (level) => {
+    if (level === 'easy') {
+      return 1;
+    } if (level === 'medium') {
+      return 2;
+    } return 2 + 1;
+  }
+
+  handleClick = (e) => {
+    e.persist();
+    this.setState((prevState) => ({
+      timer: prevState.timer,
+      showAnswers: true,
+    }));
+    const { trivia, index, timer } = this.state;
+    const { name } = e.target;
+    if (name === 'correct-answer') {
+      this.setState((prevState) => ({
+        assertions: prevState.assertions + 1,
+      }));
+      const { difficulty } = trivia[index];
+      const base = 10;
+      const sumScore = base + (timer * this.difficultyTimes(difficulty));
+      this.setState((prevState) => ({
+        score: prevState.score + sumScore,
+      }), () => {
+        const { score, assertions } = this.state;
+        const { savePontuation } = this.props;
+        savePontuation({ score, assertions });
+      });
+    }
+    const MAX_TIME = 2000;
+    setTimeout(() => {
+      this.setState((prevState) => ({
+        timer: 40,
+        index: (prevState.index + 1) % trivia.length,
+        showAnswers: false,
+      }));
+    }, MAX_TIME);
   }
 
   render() {
@@ -81,8 +116,9 @@ class Game extends React.Component {
                       key={ item }
                       type="button"
                       data-testid="correct-answer"
-                      onClick={ () => this.handleClick() }
+                      onClick={ this.handleClick }
                       disabled={ disabled }
+                      name="correct-answer"
                     >
                       {item}
                     </button>
@@ -94,7 +130,7 @@ class Game extends React.Component {
                     key={ item }
                     type="button"
                     data-testid={ `wrong-answer-${i}` }
-                    onClick={ () => this.handleClick() }
+                    onClick={ this.handleClick }
                     disabled={ disabled }
                   >
                     {item}
@@ -111,8 +147,14 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
+  savePontuation: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
-export default Game;
+
+const mapDispatchToProps = (dispatch) => ({
+  savePontuation: (value) => dispatch(pontuation(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Game);
