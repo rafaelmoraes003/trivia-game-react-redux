@@ -64,6 +64,13 @@ class Game extends React.Component {
     } return 2 + 1;
   }
 
+  updateRanking = (score) => {
+    // Atualizando o score no local storage - será útil no requisito 12
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    ranking[0].score = score;
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+  }
+
   handleClick = (e) => {
     e.persist();
     this.setState((prevState) => ({
@@ -85,6 +92,7 @@ class Game extends React.Component {
         const { score, assertions } = this.state;
         const { savePontuation } = this.props;
         savePontuation({ score, assertions });
+        this.updateRanking(score);
       });
     }
   }
