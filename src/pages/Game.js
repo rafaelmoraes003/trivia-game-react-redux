@@ -90,12 +90,18 @@ class Game extends React.Component {
   }
 
   nextBtn = () => {
-    const { trivia } = this.state;
+    const { trivia, index } = this.state;
+    const MAX_INDEX = 4;
     this.setState((prevState) => ({
       timer: 30,
-      index: (prevState.index + 1) % trivia.length,
+      index: index >= MAX_INDEX ? MAX_INDEX : (prevState.index + 1) % trivia.length,
       showAnswers: false,
-    }));
+    }), () => {
+      if (index >= MAX_INDEX) {
+        const { history } = this.props;
+        history.push('/feedback');
+      }
+    });
   };
 
   render() {
