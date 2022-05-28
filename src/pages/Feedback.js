@@ -17,12 +17,21 @@ class Feedback extends React.Component {
           <p data-testid="feedback-total-score">
             {Number(score)}
           </p>
+
           <button
             data-testid="btn-play-again"
             type="button"
             onClick={ () => history.push('/') }
           >
             Play Again
+          </button>
+
+          <button
+            data-testid="btn-ranking"
+            type="button"
+            onClick={ () => history.push('/ranking') }
+          >
+            Ranking
           </button>
         </section>
       </div>
