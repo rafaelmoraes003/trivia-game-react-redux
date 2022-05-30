@@ -22,7 +22,6 @@ class Game extends React.Component {
   componentDidMount() {
     this.fetchTrivia();
     const MAX_SECONDS = 1000;
-
     setInterval(() => {
       const { timer, showAnswers } = this.state;
       if (timer > 0 && !showAnswers) {
@@ -33,7 +32,7 @@ class Game extends React.Component {
       } else if (timer === 0 && !showAnswers) {
         this.setState({
           disabled: true,
-          showAnswers: false,
+          showAnswers: true,
           timer: 0,
         });
       }
@@ -67,7 +66,7 @@ class Game extends React.Component {
   updateRanking = (score) => {
     // Atualizando o score no local storage - será útil no requisito 12
     const ranking = JSON.parse(localStorage.getItem('ranking'));
-    ranking[0].score = score;
+    ranking[ranking.length - 1].score = score;
     localStorage.setItem('ranking', JSON.stringify(ranking));
   }
 

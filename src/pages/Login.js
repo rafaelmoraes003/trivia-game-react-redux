@@ -10,7 +10,17 @@ class Login extends React.Component {
     this.state = {
       name: '',
       email: '',
+      localRanking: [],
     };
+  }
+
+  componentDidMount() {
+    const storageRanking = JSON.parse(localStorage.getItem('ranking'));
+    if (storageRanking !== null) {
+      this.setState((prev) => ({
+        localRanking: [...prev.localRanking, ...storageRanking],
+      }));
+    }
   }
 
   handleChange = ({ target }) => {
@@ -36,9 +46,13 @@ class Login extends React.Component {
 
     const gravatarHash = md5(email).toString();
     const gravatarURL = `https://www.gravatar.com/avatar/${gravatarHash}`; // IMAGEM GRAVATAR
-    const ranking = [{ name, score: 0, picture: gravatarURL }];
-    localStorage.setItem('ranking', JSON.stringify(ranking));
-
+    const ranking = { name, score: 0, picture: gravatarURL };
+    this.setState((prev) => ({
+      localRanking: [...prev.localRanking, ranking],
+    }), () => {
+      const { localRanking } = this.state;
+      localStorage.setItem('ranking', JSON.stringify(localRanking));
+    });
     history.push('/game');
   };
 
