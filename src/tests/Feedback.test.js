@@ -21,7 +21,7 @@ describe('Testes do Feedback', () => {
   });
 
   test('Testa os textos de Feedback', () => {
-  const { history } = renderWithRouterAndRedux(<App />, initialState, "/feedback");
+  renderWithRouterAndRedux(<App />, initialState, "/feedback");
   const assertionsText = screen.getByRole('heading', { level: 3, name: /Well Done!/i });
   const score = screen.getByTestId('feedback-total-score');
   expect(assertionsText).toBeInTheDocument();
