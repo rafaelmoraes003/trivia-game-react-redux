@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import App from '../App';
 
 describe('Testa a página de Login', () => {
+  jest.setTimeout(15000);
   test('Verifica os inputs de nome e email', () =>{
     renderWithRouterAndRedux(<App />);
     const nameInput = screen.getByLabelText(/nome/i);
@@ -22,7 +23,6 @@ describe('Testa a página de Login', () => {
   });
 
   test('Testa a rota /games', async () => {
-    jest.setTimeout(15000);
     const { history } = renderWithRouterAndRedux(<App />)
     const nameInput = screen.getByTestId('input-player-name');
     const emailInput = screen.getByTestId('input-gravatar-email');
