@@ -22,6 +22,7 @@ describe('Testa a página de Login', () => {
   });
 
   test('Testa a rota /games', async () => {
+    jest.setTimeout(15000);
     const { history } = renderWithRouterAndRedux(<App />)
     const nameInput = screen.getByTestId('input-player-name');
     const emailInput = screen.getByTestId('input-gravatar-email');
