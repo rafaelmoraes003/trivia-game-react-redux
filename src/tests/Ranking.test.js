@@ -39,7 +39,7 @@ describe('Testa a página de Ranking', () => {
 
   test( 'Testa o botão de voltar ao início', () => {
     const { history } = renderWithRouterAndRedux(<App />, {}, "/ranking");
-    const backButton = screen.getByRole('button', { name: /início/i });
+    const backButton = screen.getByRole('button', { name: /home/i });
     expect(backButton).toBeInTheDocument();
     userEvent.click(backButton);
     const { pathname } = history.location;
