@@ -41,7 +41,11 @@ class Game extends React.Component {
 
   fetchTrivia = async () => {
     const token = localStorage.getItem('token');
-    const triviaFetch = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+    const URL = localStorage.getItem('TriviaMOD')
+      ? localStorage.getItem('TriviaMOD')
+      : `https://opentdb.com/api.php?amount=5&token=${token}`;
+
+    const triviaFetch = await fetch(URL);
     const response = await triviaFetch.json();
     if (response.response_code > 0) {
       const { history } = this.props;
