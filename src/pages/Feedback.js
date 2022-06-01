@@ -5,6 +5,14 @@ import Header from '../components/Header';
 import pontuation from '../redux/actions/pontuation';
 
 class Feedback extends React.Component {
+  componentDidMount() {
+    // Atualizando o score no local storage - será útil no requisito 12
+    const { score } = this.props;
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    ranking[ranking.length - 1].score = score;
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+  }
+
   playAgainClick = () => {
     const { history, savePontuation } = this.props;
     savePontuation({ score: 0, assertions: 0 });
