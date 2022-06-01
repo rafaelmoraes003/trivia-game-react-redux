@@ -22,7 +22,7 @@ class Game extends React.Component {
   componentDidMount() {
     this.fetchTrivia();
     const MAX_SECONDS = 1000;
-    setInterval(() => {
+    this.interval = setInterval(() => {
       const { timer, showAnswers } = this.state;
       if (timer > 0 && !showAnswers) {
         this.setState((prevState) => ({
@@ -109,6 +109,7 @@ class Game extends React.Component {
       showAnswers: false,
     }), () => {
       if (index >= MAX_INDEX) {
+        clearInterval(this.interval);
         const { history } = this.props;
         history.push('/feedback');
       }

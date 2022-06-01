@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import userEvent from '@testing-library/user-event'
 import App from '../App';
@@ -36,8 +36,9 @@ describe('Testa a página de Login', () => {
     expect(emailInput).toHaveValue('teste@teste.gamil.com')
     expect(playButton).not.toBeDisabled();
     userEvent.click(playButton);
-    await waitForElementToBeRemoved(playButton);
-    expect(playButton).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(playButton).not.toBeInTheDocument();
+    }, 6000)
     const { pathname } = history.location;
     expect(pathname).toBe('/game');
 
