@@ -48,7 +48,13 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { categories, difficulties, types } = this.state;
+    const {
+      categories,
+      difficulties,
+      types,
+      categoryValue,
+      difficultyValue,
+      typeValue } = this.state;
     return (
       <div data-testid="settings-title">
         {categories.length > 0 && (
@@ -56,7 +62,12 @@ class Settings extends React.Component {
             <h2>Choose how you want to play!</h2>
             <label htmlFor="categories">
               Category
-              <select id="categories" name="categoryValue" onChange={ this.handleChange }>
+              <select
+                id="categories"
+                name="categoryValue"
+                onChange={ this.handleChange }
+                value={ categoryValue }
+              >
                 {categories.map((category) => (
                   <option
                     key={ category.id }
@@ -74,6 +85,7 @@ class Settings extends React.Component {
                 id="difficulties"
                 name="difficultyValue"
                 onChange={ this.handleChange }
+                value={ difficultyValue }
               >
                 {difficulties.map((difficulty, index) => (
                   <option
@@ -88,7 +100,12 @@ class Settings extends React.Component {
 
             <label htmlFor="types">
               Type
-              <select id="types" name="typeValue" onChange={ this.handleChange }>
+              <select
+                id="types"
+                name="typeValue"
+                onChange={ this.handleChange }
+                value={ typeValue }
+              >
                 {types.map((type) => (
                   <option
                     key={ type.name }

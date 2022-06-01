@@ -28,6 +28,14 @@ describe('Testa o componente Settings', () => {
     expect(typeSelect).toHaveAttribute('name', 'typeValue');
   });
 
+  test('Testa os valores dos selects', async () => {
+    renderWithRouterAndRedux(<App />, {}, '/settings');
+    const categorySelect = await screen.findByLabelText('Category');
+    expect(categorySelect).toBeInTheDocument();
+    userEvent.selectOptions(categorySelect, ['23']);
+    expect(categorySelect).toHaveValue('23')
+  })
+
   test('Testa o local storage', async () => {
     renderWithRouterAndRedux(<App />, {}, '/settings');
     const saveButton = await screen.findByRole('button', { name: /save changes/i });
