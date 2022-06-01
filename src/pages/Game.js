@@ -60,18 +60,12 @@ class Game extends React.Component {
   }
 
   difficultyTimes = (level) => {
+    const n = 3;
     if (level === 'easy') {
       return 1;
     } if (level === 'medium') {
       return 2;
-    } return 2 + 1;
-  }
-
-  updateRanking = (score) => {
-    // Atualizando o score no local storage - será útil no requisito 12
-    const ranking = JSON.parse(localStorage.getItem('ranking'));
-    ranking[ranking.length - 1].score = score;
-    localStorage.setItem('ranking', JSON.stringify(ranking));
+    } return n;
   }
 
   handleClick = (e) => {
@@ -95,7 +89,6 @@ class Game extends React.Component {
         const { score, assertions } = this.state;
         const { savePontuation } = this.props;
         savePontuation({ score, assertions });
-        this.updateRanking(score);
       });
     }
   }

@@ -14,6 +14,11 @@ const initialState = {
 }
 
 describe('Testes do Feedback', () => {
+  const ranking = [{ name: 'joão',
+    picture: "https://www.gravatar.com/avatar/7fda68e0d1734e8715b9751dce97c7b8",
+    score: 20,
+}]
+  localStorage.setItem('ranking', JSON.stringify(ranking));
   test('Testa a URL', () => {
     const { history } = renderWithRouterAndRedux(<App />, initialState, "/feedback");
     const { pathname } = history.location;
@@ -50,5 +55,24 @@ describe('Testes do Feedback', () => {
     userEvent.click(rankingButton);
     const { pathname } = history.location;
     expect(pathname).toBe('/ranking');
+  });
+
+  test('testa se a mesnagem exibida na tela é Well done!', () => {
+    renderWithRouterAndRedux(<App />, initialState, "/feedback");
+    const message = screen.getByRole('heading', { name: /well done!/i});
+    expect(message).toBeInTheDocument();
+  });
+
+  test('testa se a mesnagem exibida na tela é Could be better', () => {
+    renderWithRouterAndRedux(<App />,   
+  {
+    name: 'teste',
+    gravatarEmail: 'teste@teste.com',
+    score: 30,
+    assertions: 1,
+  }, "/feedback");
+
+    const message = screen.getByRole('heading', { name: /could be better.../i});
+    expect(message).toBeInTheDocument();
   });
 });
