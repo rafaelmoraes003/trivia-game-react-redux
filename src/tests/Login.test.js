@@ -36,9 +36,8 @@ describe('Testa a página de Login', () => {
     expect(emailInput).toHaveValue('teste@teste.gamil.com')
     expect(playButton).not.toBeDisabled();
     userEvent.click(playButton);
-    await waitFor(() => {
-      expect(playButton).not.toBeInTheDocument();
-    }, 6000)
+    await waitForElementToBeRemoved(playButton)
+    expect(playButton).not.toBeInTheDocument()
     const { pathname } = history.location;
     expect(pathname).toBe('/game');
 
