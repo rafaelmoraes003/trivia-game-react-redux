@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import userEvent from '@testing-library/user-event'
 import App from '../App';
@@ -13,7 +13,6 @@ describe('Testa o componente Settings', () => {
 
   test('Testa os selects', async () => {
     renderWithRouterAndRedux(<App />, {}, '/settings');
-    await waitFor(() => {},5000)
     const categorySelect = await screen.findByLabelText('Category');
     const difficultySelect = await screen.findByLabelText('Difficulty');
     const typeSelect = await screen.findByLabelText('Type');

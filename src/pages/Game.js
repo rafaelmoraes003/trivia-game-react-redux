@@ -47,25 +47,17 @@ class Game extends React.Component {
 
     const triviaFetch = await fetch(URL);
     const response = await triviaFetch.json();
-    if (response.response_code > 0) {
+    if (response.response_code === 0) {
+      this.setState({ trivia: response.results });
+      const n = 0.5;
+      const answers = response.results.map((item) => (
+        [item.correct_answer, ...item.incorrect_answers].sort(() => Math.random() - n)
+      ));
+      this.setState({ answers });
+    } else {
       const { history } = this.props;
       history.push('/');
     }
-    this.setState({ trivia: response.results });
-    const n = 0.5;
-    const answers = response.results.map((item) => (
-      [item.correct_answer, ...item.incorrect_answers].sort(() => Math.random() - n)
-    ));
-    this.setState({ answers });
-  }
-
-  difficultyTimes = (level) => {
-    const n = 3;
-    if (level === 'easy') {
-      return 1;
-    } if (level === 'medium') {
-      return 2;
-    } return n;
   }
 
   handleClick = (e) => {
@@ -82,7 +74,14 @@ class Game extends React.Component {
       }));
       const { difficulty } = trivia[index];
       const base = 10;
-      const sumScore = base + (timer * this.difficultyTimes(difficulty));
+      const db = { easy: 1, medium: 2, hard: 3 };
+      let sumScore;
+      Object.keys(db).forEach((item, i) => {
+        if (difficulty === item) {
+          sumScore = base + (timer * Object.values(db)[i]);
+        }
+      });
+
       this.setState((prevState) => ({
         score: prevState.score + sumScore,
       }), () => {
@@ -95,14 +94,14 @@ class Game extends React.Component {
 
   nextBtn = () => {
     const { trivia, index } = this.state;
-    const MAX_INDEX = 4;
+    // const MAX_INDEX = 4;
     this.setState((prevState) => ({
       timer: 30,
-      index: index >= MAX_INDEX ? MAX_INDEX : (prevState.index + 1) % trivia.length,
+      index: index >= 2 + 2 ? 2 + 2 : (prevState.index + 1) % trivia.length,
       showAnswers: false,
     }), () => {
-      if (index >= MAX_INDEX) {
-        clearInterval(this.interval);
+      if (index >= 2 + 2) {
+        // clearInterval(this.interval);
         const { history } = this.props;
         history.push('/feedback');
       }
