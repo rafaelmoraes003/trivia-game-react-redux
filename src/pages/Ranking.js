@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import pontuation from '../redux/actions/pontuation';
+import './Ranking.css';
 
 class Ranking extends React.Component {
   constructor() {
@@ -26,26 +27,28 @@ class Ranking extends React.Component {
   render() {
     const { ranking } = this.state;
     return (
-      <div data-testid="ranking-title">
-        <span>Ranking</span>
+      <div data-testid="ranking-title" className="ranking-container">
         {ranking.map(({ name, picture, score }, index) => (
-          <div key={ index }>
+          <div key={ index } className="ranking">
             <img
+              style={ { display: 'none' } }
               alt={ name }
               src={ picture }
             />
-            <h2 data-testid={ `player-name-${index}` }>
+            <h2 className="position">{`#${index + 1}`}</h2>
+            <h3 data-testid={ `player-name-${index}` }>
               {name}
-            </h2>
-            <span data-testid={ `player-score-${index}` }>
+            </h3>
+            <h3 data-testid={ `player-score-${index}` }>
               {score}
-            </span>
+            </h3>
           </div>
         ))}
         <button
           type="button"
           data-testid="btn-go-home"
           onClick={ this.backHome }
+          className="btn btn-dark"
         >
           Home
         </button>

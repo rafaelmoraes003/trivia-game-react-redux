@@ -1,0 +1,33 @@
+.login-container {
+  border: 2px solid rgba(181, 183, 181, 0.3);
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.login-container img {
+  width: 500px;
+  margin-bottom: 50px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.login-container form button {
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.login-container form button:nth-of-type(2) {
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-container form button:disabled {
+  color: black;
+}

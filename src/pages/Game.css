@@ -1,0 +1,57 @@
+.trivia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.answer-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.answer-options button {
+  min-width: 170px;
+  margin: 5px;
+  font-size: 18px;
+  min-height: 60px;
+}
+
+.question-category {
+  color: white;
+  font-size: 20px;
+}
+
+.question-text {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: white;
+  font-size: 20px;
+  max-width: 800px;
+  min-width: 600px;
+  text-align: center;
+}
+
+.next-btn {
+  margin-top: 20px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-outline-warning {
+  width: 150px;
+}
+
+.timer-p {
+  color: white;
+  font-size: 17px;
+}
+
+.timer {
+  font-size: 25px;
+  color: white;
+}

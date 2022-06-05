@@ -1,0 +1,20 @@
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  padding: 25px;
+  background-color: rgba(181, 183, 181, 0.3);
+  border-radius: 8px;
+}
+
+.feedback-container h2, .feedback-container h3 {
+  margin-top: 10px;
+  color: white;
+}
+
+.feedback-container button {
+  margin-top: 10px;
+  width: 70%;
+}
