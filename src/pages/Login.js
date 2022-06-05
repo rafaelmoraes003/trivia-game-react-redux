@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import username from '../redux/actions/username';
+import logo from '../trivia.png';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -63,16 +65,19 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="login-container">
+        <img src={ logo } alt="Logo Trivia" />
         <form>
           <label htmlFor="name">
-            Nome
+            Name
             <input
               type="text"
               name="name"
               id="name"
               data-testid="input-player-name"
               onChange={ this.handleChange }
+              className="form-control"
+              autoComplete="off"
             />
           </label>
 
@@ -84,6 +89,8 @@ class Login extends React.Component {
               id="email"
               data-testid="input-gravatar-email"
               onChange={ this.handleChange }
+              className="form-control"
+              autoComplete="off"
             />
           </label>
 
@@ -92,17 +99,26 @@ class Login extends React.Component {
             data-testid="btn-play"
             disabled={ !this.enableButton() }
             onClick={ this.sendNameToGlobalState }
+            className="btn btn-primary"
           >
             Play
           </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.settingsButton }
+            className="btn btn-dark"
+          >
+            Settings
+          </button>
         </form>
-        <button
+        {/* <button
           type="button"
           data-testid="btn-settings"
           onClick={ this.settingsButton }
         >
           Settings
-        </button>
+        </button> */}
       </div>
     );
   }

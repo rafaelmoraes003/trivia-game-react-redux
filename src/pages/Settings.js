@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Settings.css';
 
 class Settings extends React.Component {
   constructor() {
@@ -56,10 +57,10 @@ class Settings extends React.Component {
       difficultyValue,
       typeValue } = this.state;
     return (
-      <div data-testid="settings-title">
+      <div data-testid="settings-title" className="settings-conatiner">
         {categories.length > 0 && (
           <>
-            <h2>Choose how you want to play!</h2>
+            <h1>Choose how you want to play!</h1>
             <label htmlFor="categories">
               Category
               <select
@@ -67,6 +68,7 @@ class Settings extends React.Component {
                 name="categoryValue"
                 onChange={ this.handleChange }
                 value={ categoryValue }
+                className="form-select"
               >
                 {categories.map((category) => (
                   <option
@@ -86,6 +88,7 @@ class Settings extends React.Component {
                 name="difficultyValue"
                 onChange={ this.handleChange }
                 value={ difficultyValue }
+                className="form-select"
               >
                 {difficulties.map((difficulty, index) => (
                   <option
@@ -105,6 +108,7 @@ class Settings extends React.Component {
                 name="typeValue"
                 onChange={ this.handleChange }
                 value={ typeValue }
+                className="form-select"
               >
                 {types.map((type) => (
                   <option
@@ -117,9 +121,27 @@ class Settings extends React.Component {
               </select>
             </label>
 
-            <button type="button" onClick={ this.saveChanges }>Save Changes</button>
-            <button type="button" onClick={ this.clearChanges }>Clear Changes</button>
-            <button type="button" onClick={ this.backHome }>Home</button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={ this.saveChanges }
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={ this.clearChanges }
+            >
+              Clear Changes
+            </button>
+            <button
+              type="button"
+              className="btn btn-dark"
+              onClick={ this.backHome }
+            >
+              Home
+            </button>
           </>
         )}
       </div>

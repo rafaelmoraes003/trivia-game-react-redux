@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
+// import Header from '../components/Header';
 import pontuation from '../redux/actions/pontuation';
+import './Feedback.css';
 
 class Feedback extends React.Component {
   componentDidMount() {
@@ -23,20 +24,21 @@ class Feedback extends React.Component {
     const { assertions, score, history } = this.props;
     return (
       <div data-testid="feedback-text">
-        <Header />
-        <section data-testid="feedback-text">
-          { assertions > 2 ? (<h3>Well Done!</h3>) : (<h3>Could be better...</h3>) }
-          <p data-testid="feedback-total-question">
-            {Number(assertions)}
-          </p>
-          <p data-testid="feedback-total-score">
-            {Number(score)}
-          </p>
+        {/* <Header /> */}
+        <section data-testid="feedback-text" className="feedback-container">
+          { assertions > 2 ? (<h2>Well Done!</h2>) : (<h2>Could be better...</h2>) }
+          <h3 data-testid="feedback-total-question">
+            {`Assertions: ${Number(assertions)}`}
+          </h3>
+          <h3 data-testid="feedback-total-score">
+            {`Score: ${Number(score)}`}
+          </h3>
 
           <button
             data-testid="btn-play-again"
             type="button"
             onClick={ this.playAgainClick }
+            className="btn btn-primary"
           >
             Play Again
           </button>
@@ -45,6 +47,7 @@ class Feedback extends React.Component {
             data-testid="btn-ranking"
             type="button"
             onClick={ () => history.push('/ranking') }
+            className="btn btn-warning"
           >
             Ranking
           </button>

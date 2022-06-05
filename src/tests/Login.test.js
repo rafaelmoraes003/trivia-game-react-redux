@@ -7,7 +7,7 @@ import App from '../App';
 describe('Testa a página de Login', () => {
   test('Verifica os inputs de nome e email', () =>{
     renderWithRouterAndRedux(<App />);
-    const nameInput = screen.getByLabelText(/nome/i);
+    const nameInput = screen.getByLabelText(/name/i);
     const emailInput = screen.getByLabelText(/email/i);
     expect(nameInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();

@@ -1,7 +1,16 @@
-body {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(46, 53, 50);
+  height: 100vh;
 }
 
 .App {

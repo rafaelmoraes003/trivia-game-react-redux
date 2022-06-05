@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import pontuation from '../redux/actions/pontuation'; //
+import pontuation from '../redux/actions/pontuation';
+import './Game.css';
 
 class Game extends React.Component {
   constructor() {
@@ -66,9 +67,9 @@ class Game extends React.Component {
       timer: prevState.timer,
       showAnswers: true,
     }));
-    const { trivia, index, timer } = this.state;
+    const { trivia, index, timer, showAnswers } = this.state;
     const { name } = e.target;
-    if (name === 'correct-answer') {
+    if (name === 'correct-answer' && !showAnswers) {
       this.setState((prevState) => ({
         assertions: prevState.assertions + 1,
       }));
@@ -111,14 +112,35 @@ class Game extends React.Component {
   render() {
     const { trivia, index, answers, showAnswers, timer, disabled } = this.state;
     return (
-      <div data-testid="game-page-div">
+      <div data-testid="game-page-div" className="game-container">
         <Header />
-        <p>{`Timer: ${timer}`}</p>
         {trivia.length > 0 && answers.length > 0 && (
-          <div>
-            <p data-testid="question-category">{ trivia[index].category}</p>
-            <p data-testid="question-text">{trivia[index].question}</p>
-            <div data-testid="answer-options">
+          <div className="trivia">
+            <p>
+              <span
+                className="timer-p"
+              >
+                Timer:
+              </span>
+              <span
+                className="timer"
+              >
+                {timer}
+              </span>
+            </p>
+            <p
+              data-testid="question-category"
+              className="question-category"
+            >
+              { trivia[index].category}
+            </p>
+            <p
+              data-testid="question-text"
+              className="question-text"
+            >
+              {trivia[index].question}
+            </p>
+            <div data-testid="answer-options" className="answer-options">
               {answers[index].map((item, i) => {
                 if (item === trivia[index].correct_answer) {
                   return (
@@ -130,6 +152,7 @@ class Game extends React.Component {
                       onClick={ this.handleClick }
                       disabled={ disabled }
                       name="correct-answer"
+                      className="btn btn-dark"
                     >
                       {item}
                     </button>
@@ -143,6 +166,7 @@ class Game extends React.Component {
                     data-testid={ `wrong-answer-${i}` }
                     onClick={ this.handleClick }
                     disabled={ disabled }
+                    className="btn btn-dark"
                   >
                     {item}
                   </button>
@@ -151,15 +175,18 @@ class Game extends React.Component {
             </div>
           </div>
         )}
-        {showAnswers && (
-          <button
-            data-testid="btn-next"
-            type="button"
-            onClick={ this.nextBtn }
-          >
-            Next
-          </button>
-        )}
+        <div className="next-btn">
+          {showAnswers && (
+            <button
+              data-testid="btn-next"
+              type="button"
+              onClick={ this.nextBtn }
+              className="btn btn-outline-warning"
+            >
+              Next
+            </button>
+          )}
+        </div>
 
       </div>
     );
